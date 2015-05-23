@@ -25,6 +25,11 @@ def download(request):
     else:
         content = subtitles[video][0].content
         response = HttpResponse(content, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=%s.srt' % video.name
+        response['Content-Disposition'] = 'attachment; filename=%s.srt' % basename(video.name)
 
     return response
+
+
+def basename(filename):
+    dot_index = filename.rfind('.')
+    return filename[:dot_index] if dot_index > 0 else filename
